@@ -1,0 +1,11 @@
+.vcenter {
+    vertical-align: middle;
+}
+
+.right-buffer{
+    margin-right: 20px;
+}
+
+.auto-margins{
+    margin: 2rem auto;
+}
