@@ -13,7 +13,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                             <h3>{{user}}</h3>
                             <h2>{{tweet}}</h2>
                         </div>                        
-                        <comment [thisUser]="thisUser" [commentText]="getComment(i)" *ngFor="let comment of comments; let i = index"></comment>
+                        <comment [user]="getUser(i)" [text]="getComment(i)" *ngFor="let comment of comments; let i = index"></comment>
                         
                         <div class="col-lg-6">
                             <div class="input-group">
@@ -27,7 +27,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                     </li>
                 </ul>
             `
-}) // problem ostaju slike korisnika
+}) // problem ostaju slike korisnika aaaa
 
 export class Tweet {
     @Input() public tweet: string;
@@ -36,32 +36,36 @@ export class Tweet {
     private comments: Comment[];
 
     constructor(){        
-        
+        this.comments = [];
     }
 
     public getComment(index: number){
         return this.comments[index].getCommentText();
     }
     public getUser(index: number){
-        return this.user;
+        return this.comments[index].getCommentUser();
     }
     
     public addComment(commentInput: HTMLInputElement){ 
         if(commentInput.value != "")
-            this.comments.push(new Comment(commentInput.value));
-            this.comments.join("aa");
+            this.comments.push(new Comment(commentInput.value, this.thisUser));
         commentInput.value = "";
     }
 }
 
 export class Comment{
     private commentText: string;
+    private thisCommentsUser: string;
 
-    constructor(commentText: string){
+    constructor(commentText: string, thisCommentsUser: string){
         this.commentText = commentText;
+        this.thisCommentsUser = thisCommentsUser;
     }
 
     public getCommentText(){
         return this.commentText;
+    }
+    public getCommentUser(){
+        return this.thisCommentsUser;
     }
 }

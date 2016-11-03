@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 
                 <div class="col-lg-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tweet here!" #tweetInput/>
+                        <input type="text" class="form-control" placeholder="Tweet here!" #tweetInput (keyup.enter)="addTweet(tweetInput)"/>
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" (click)="addTweet(tweetInput)">Tweet</button>
                         </span>
@@ -23,21 +23,18 @@ export class AppComponent {
     private user: User;
   
     constructor(){
-        this.tweets = [
-            new Tweet("Hello world!", new User("Mate Matic")),
-            new Tweet("I am a tweet!", new User("Miljenko Milic"))
-        ];
+        this.tweets = [];
         this.user = new User("Moj Profil");
     }
 
     public getUser(index: number){
         return this.tweets[index].getUserName();
     }
+    public getThisUser(index: number){
+        return this.user.userName;
+    }
     public getText(index: number){
         return this.tweets[index].getText();
-    }
-    public getThisUser(){
-        return this.user.userName;
     }
     public addTweet(tweetInput: HTMLInputElement){ 
         if(tweetInput.value != "")
