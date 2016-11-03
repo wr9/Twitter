@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 @Component({
  selector: 'my-app',
- template: '<navbar></navbar><login-form></login-form><register-form></register-form>'
+ template: '<navbar></navbar><router-outlet></router-outlet>'
 })
 export class AppComponent { }
