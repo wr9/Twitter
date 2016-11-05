@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 import { Navbar } from './components/navbar/navbar';
 import { LoginForm } from './components/loginForm/loginForm';
 import { RegisterForm } from './components/registerForm/registerForm';
+import { EditProfile } from './components/editProfile/editProfile';
 import { routing } from './app.routes';
 
 @NgModule({
  imports: [ BrowserModule, NgbModule.forRoot(), routing],
- declarations: [ AppComponent, Navbar, LoginForm, RegisterForm ],
+ declarations: [ AppComponent, Navbar, LoginForm, RegisterForm, EditProfile ],
  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
