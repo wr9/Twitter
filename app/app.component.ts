@@ -13,60 +13,138 @@ import { Component } from '@angular/core';
                         </span>
                     </div>
                 </div>
-
-                <tweet-frame [thisUser]="getThisUser()" [tweet]="getText(i)" [user]="getUser(i)" *ngFor="let tweet of tweets; let i = index"></tweet-frame>
+                
+                <h2>Favorites</h2>
+                <tweet-frame [tweets]="getThisUserFavoriteTweets()" [thisUser]="getThisUser()"></tweet-frame>
+                <h2>Other Tweets</h2>
+                <tweet-frame [tweets]="getThisUserTweets()" [thisUser]="getThisUser()"></tweet-frame>
+                <tweet-frame    [tweets]="getAllTweets(i)" 
+                                [thisUser]="getThisUser()"
+                                *ngFor="let user of otherUsers, let i  = index">
+                <tweet-frame>
+                
             `
 })
 
 export class AppComponent {
-    private tweets: Tweet[];
-    private user: User;
-  
+    private currentUser: User;
+    private otherUsers: User[];
+
     constructor(){
-        this.tweets = [];
-        this.user = new User("Moj Profil");
-    }
+        this.currentUser = new User("Moj profil");
+        this.otherUsers = [new User("User1"), new User("User2")];
 
-    public getUser(index: number){
-        return this.tweets[index].getUserName();
-    }
-    public getThisUser(index: number){
-        return this.user.userName;
-    }
-    public getText(index: number){
-        return this.tweets[index].getText();
-    }
-    public addTweet(tweetInput: HTMLInputElement){ 
-        if(tweetInput.value != "")
-            this.tweets.push(new Tweet(tweetInput.value, this.user));
-        tweetInput.value="";
-  }
- }
+        var user1Tweets = this.otherUsers[0].getUserTweets();
+        var user2Tweets = this.otherUsers[1].getUserTweets();
+        user1Tweets.push(new Tweet("User1 tweet #1", this.otherUsers[0].getUserName()));
+        user1Tweets.push(new Tweet("User1 tweet #2", this.otherUsers[0].getUserName()));
+        user1Tweets.push(new Tweet("User2 tweet #1", this.otherUsers[1].getUserName()));
+        user1Tweets.push(new Tweet("User2 tweet #2", this.otherUsers[1].getUserName()));
+        var user1Tweet2Coments = user1Tweets[1].getComments();
+        user1Tweet2Coments.push(new Comment("test comment user 1, tweet 2", this.otherUsers[1].getUserName()));
 
- class Tweet {
-    private user: User;
-    private text: string;
-  
-    constructor(text: string, user: User){
-        if(text.length <= 140)
+        var tweets = this.currentUser.getUserTweets();
+        tweets.push(new Tweet("Moj Tweet #1", this.currentUser.getUserName()));
+        tweets.push(new Tweet("Moj Tweet #2", this.currentUser.getUserName()));
+        tweets.push(new Tweet("Moj Tweet #3", this.currentUser.getUserName()));
+
+        var comments = tweets[1].getComments();
+        comments.push(new Comment("test comment #1", this.currentUser.getUserName()));
+        comments.push(new Comment("test comment #2", this.currentUser.getUserName()));
+        comments = tweets[2].getComments();
+        comments.push(new Comment("test 123", this.currentUser.getUserName()));
+
+        var myStars = this.currentUser.getStarts();
+        for(let i = 0; i < this.otherUsers.length; i++)
         {
-            this.text = text;
-            this.user = user;
+            var otherUsersTweets = this.otherUsers[i].getUserTweets();
+            for(let j = 0; j < otherUsersTweets.length; j++)
+                myStars.push(false);
         }
     }
 
-    public getUserName(){
-        return this.user.userName;
+    public getThisUser(){
+        return this.currentUser;
+    }
+    public getAllTweets(index: number){
+        if(this.otherUsers.length > 0)        
+            return this.otherUsers[index].getUserTweets();
+    }
+    public getThisUserTweets(){
+        return this.currentUser.getUserTweets();
+    }
+    public getThisUserFavoriteTweets(){
+        return this.currentUser.getFavoriteTweets();
+    }
+    public addTweet(tweetInput: HTMLInputElement){
+        if(tweetInput.value != "")
+        {
+            var currentUserTweets = this.currentUser.getUserTweets();
+            currentUserTweets.push(new Tweet(tweetInput.value, this.currentUser.getUserName()));
+        }
+        tweetInput.value="";
+    }
+ }
+
+class User {
+    private userName: string;
+    private tweets: Tweet[];
+    private stars: boolean[];
+    private favoriteTweets: Tweet[];
+
+    constructor(userName: string, tweets: Tweet[] = [], stars: boolean[] = [], favoriteTweets: Tweet[] = []){
+        this.userName = userName;
+        this.tweets = tweets;
+        this.stars = stars;
+        this.favoriteTweets = favoriteTweets;
     }
 
-    public getText(){
-        return this.text;
+    public getUserTweets(){
+        return this.tweets;
+    }
+    public getFavoriteTweets(){
+        return this.favoriteTweets;
+    }
+    public getUserName(){
+        return this.userName;
+    }
+    public getStarts(){
+        return this.stars;
     }
 }
 
-class User {
-    public userName: string;
-    constructor(userName: string){
+class Tweet{
+    private tweet: string;
+    private userName: string;
+    private comments: Comment[];
+
+    constructor(tweet: string, userName: string, comments: Comment[] = []){
+        this.tweet = tweet;
         this.userName = userName;
+        this.comments = comments;
+    }
+
+    public getTweet(){
+        return this.tweet;
+    }
+    public getComments(){
+        return this.comments;
+    }
+}
+
+class Comment{
+    private commentText;
+    private userName;
+
+    constructor(commentText: string = "", userName: string = ""){
+        this.commentText = commentText;
+        this.userName = userName;
+    }
+    
+    public getCommentUser(){
+        return this.userName;
+    }
+    public getCommentText(){
+        return this.commentText;
     }
 }

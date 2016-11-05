@@ -2,70 +2,68 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
  selector: 'tweet-frame',
  template: `
-                <ul class="media-list">
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="" alt="">                         
-                            </a>                            
-                        </div>
-                        <div class="media-body">
-                            <h3>{{user}}</h3>
-                            <h2>{{tweet}}</h2>
-                        </div>                        
-                        <comment [user]="getUser(i)" [text]="getComment(i)" *ngFor="let comment of comments; let i = index"></comment>
-                        
-                        <div class="col-lg-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Comment..." #inputComment (keyup.enter)="addComment(inputComment)"/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" (click)="addComment(inputComment)">Comment</button>
-                                </span>
+                <div class="panel panel-default"  *ngFor="let tweet of tweets, let i = index">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{tweets[i].userName}}</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        {{tweets[i].tweet}}   
+                        <span   [ngClass]="getUserStar()" 
+                                aria-hidden="true" 
+                                #star 
+                                (click)="handleFavorite(i, star)"
+                                >
+                        </span>                 
+                        <div class="panel panel-default" *ngFor="let comment of tweets[i].comments, let j = index">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">{{tweets[i].comments[j].userName}}</h5>
+                            </div>
+                            <div class="panel-body">
+                                <h6>{{tweets[i].comments[j].commentText}}</h6>
                             </div>
                         </div>
-                        
-                    </li>
-                </ul>
+                    </div>                 
+                    
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Comment..." #commentInput (keyup.enter)="addComment(commentInput, i)"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" (click)="addComment(commentInput, i)">Comment</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             `
-}) // problem ostaju slike korisnika aaaa
+})
 
 export class Tweet {
-    @Input() public tweet: string;
-    @Input() public user: string;
-    @Input() public thisUser: string;
-    private comments: Comment[];
+    @Input() public tweets;
+    @Input() public thisUser;      
 
-    constructor(){        
-        this.comments = [];
-    }
-
-    public getComment(index: number){
-        return this.comments[index].getCommentText();
-    }
-    public getUser(index: number){
-        return this.comments[index].getCommentUser();
-    }
-    
-    public addComment(commentInput: HTMLInputElement){ 
+    public addComment(commentInput: HTMLInputElement, index: number){
+        commentInput.value.trim();
         if(commentInput.value != "")
-            this.comments.push(new Comment(commentInput.value, this.thisUser));
+        {
+            this.tweets[index].comments.push(new Comment());
+            var i = this.tweets[index].comments.length - 1;
+            this.tweets[index].comments[i].userName = this.thisUser.userName;
+            this.tweets[index].comments[i].commentText = commentInput.value;            
+        }
+
         commentInput.value = "";
+    }  
+    public getUserStar(){
+        
     }
-}
+    public handleFavorite(index: number, star: HTMLSpanElement){
+        if(star.classList.contains("glyphicon-star-empty")){            
+            this.thisUser.favoriteTweets.push(this.tweets[index]);
+            star.classList.remove("glyphicon-star-empty");
+            star.classList.add("glyphicon-star");
+        }
+        else{
 
-export class Comment{
-    private commentText: string;
-    private thisCommentsUser: string;
-
-    constructor(commentText: string, thisCommentsUser: string){
-        this.commentText = commentText;
-        this.thisCommentsUser = thisCommentsUser;
-    }
-
-    public getCommentText(){
-        return this.commentText;
-    }
-    public getCommentUser(){
-        return this.thisCommentsUser;
+        }
     }
 }
