@@ -9,3 +9,17 @@
 .auto-margins{
     margin: 2rem auto;
 }
+
+.profile-picture-tweet{
+    width: 64px;
+    height: 64px;
+}
+
+.profile-picture-comment{
+    width: 32px;
+    height: 32px;
+}
+
+.tweet{
+    margin: 64px;
+}

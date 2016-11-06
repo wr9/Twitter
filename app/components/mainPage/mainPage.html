@@ -1,0 +1,29 @@
+<div class="col-lg-6">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Tweet here!" #tweetInput (keyup.enter)="addTweet(tweetInput)"/>
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="addTweet(tweetInput)">Tweet</button>
+        </span>
+    </div>
+</div>
+                
+                
+<h2>Favorites</h2>
+<tweet-frame 
+    [tweets] = "getThisUserFavoriteTweets()" 
+    [thisUser] = "getThisUser()"
+    [starStatus] = "'glyphicon glyphicon-star'">
+</tweet-frame>
+                
+<h2>Other Tweets</h2>
+<tweet-frame    
+    [tweets] = "getThisUserTweets()" 
+    [thisUser] = "getThisUser()"
+    [starStatus] = "'glyphicon glyphicon-star-empty'">
+</tweet-frame>
+<tweet-frame    
+    [tweets] = "getAllTweets(i)" 
+    [thisUser] = "getThisUser()"
+    [starStatus] = "'glyphicon glyphicon-star-empty'"
+    *ngFor="let user of otherUsers, let i  = index">
+<tweet-frame>
