@@ -10,10 +10,22 @@ import { EditProfile } from './components/editProfile/editProfile';
 import { routing } from './app.routes';
 import { Tweet } from './components/tweet/tweet';
 import { MainPage } from './components/mainPage/mainPage';
+import { SearchForm } from './components/searchForm/searchForm';
+import { UserCover } from './components/userCover/userCover';
 
 @NgModule({
  imports: [ BrowserModule, NgbModule.forRoot(), routing],
- declarations: [ AppComponent, Navbar, LoginForm, RegisterForm, EditProfile, Tweet, MainPage ],
+ declarations: [ 
+                    AppComponent, 
+                    Navbar, 
+                    LoginForm, 
+                    RegisterForm, 
+                    EditProfile, 
+                    Tweet, 
+                    MainPage, 
+                    SearchForm,
+                    UserCover
+                ],
  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

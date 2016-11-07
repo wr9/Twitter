@@ -1,29 +1,34 @@
-<div class="col-lg-6">
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Tweet here!" #tweetInput (keyup.enter)="addTweet(tweetInput)"/>
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="addTweet(tweetInput)">Tweet</button>
-        </span>
+<user-cover [userName]="getThisUserName()"></user-cover>
+
+<div style="position:absolute; width: 100%; padding-bottom: 10px;">
+    <div class="col-lg-6" style="width: 100%;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Tweet here!" #tweetInput (keyup.enter)="addTweet(tweetInput)"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" (click)="addTweet(tweetInput)">Tweet</button>
+            </span>
+        </div>
+    </div>
+                    
+    <div style="padding-top: 50px;">                
+        <h2 *ngIf="this.currentUser.favoriteTweets.length !== 0">Favorite tweets:</h2>
+        <tweet-frame 
+            [tweets] = "getThisUserFavoriteTweets()" 
+            [thisUser] = "getThisUser()"
+            [starStatus] = "'glyphicon glyphicon-star'">
+        </tweet-frame>
+                        
+        <h2 style="padding-top: 5px;">New tweets:</h2>
+        <tweet-frame    
+            [tweets] = "getThisUserTweets()" 
+            [thisUser] = "getThisUser()"
+            [starStatus] = "'glyphicon glyphicon-star-empty'">
+        </tweet-frame>
+        <tweet-frame    
+            [tweets] = "getAllTweets(i)" 
+            [thisUser] = "getThisUser()"
+            [starStatus] = "'glyphicon glyphicon-star-empty'"
+            *ngFor="let user of otherUsers, let i  = index">
+        </tweet-frame>
     </div>
 </div>
-                
-                
-<h2>Favorites</h2>
-<tweet-frame 
-    [tweets] = "getThisUserFavoriteTweets()" 
-    [thisUser] = "getThisUser()"
-    [starStatus] = "'glyphicon glyphicon-star'">
-</tweet-frame>
-                
-<h2>Other Tweets</h2>
-<tweet-frame    
-    [tweets] = "getThisUserTweets()" 
-    [thisUser] = "getThisUser()"
-    [starStatus] = "'glyphicon glyphicon-star-empty'">
-</tweet-frame>
-<tweet-frame    
-    [tweets] = "getAllTweets(i)" 
-    [thisUser] = "getThisUser()"
-    [starStatus] = "'glyphicon glyphicon-star-empty'"
-    *ngFor="let user of otherUsers, let i  = index">
-<tweet-frame>

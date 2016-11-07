@@ -1,33 +1,31 @@
-<div class="panel panel-default tweet"  *ngFor="let tweet of tweets, let i = index">
+<div class="panel panel-primary tweet"  *ngFor="let tweet of tweets, let i = index">
     <div class="panel-heading">
-        <img class="profile-picture-tweet" src="app/assets/{{tweets[i].userName}}.png"/>
-        <h3 class="panel-title">{{tweets[i].userName}}</h3>
-    </div>
-
-    <div class="panel-body">
-        {{tweets[i].tweet}}   
-        <span   class="{{starStatus}}" 
+        <img class="profile-picture-tweet" src="app/assets/{{tweets[i].userName}}.png" style="display: inline-block;"/>
+        <div class="panel-title" style="display: inline-block; font-weight: bold;">{{tweets[i].userName}}:</div>
+        <div style="display: inline-block;">{{tweets[i].tweet}}</div>   
+        <span   class="{{starStatus}} pull-right right-buffer" 
                 aria-hidden="true" 
                 #star
-                (click)="handleFavorite(i, star)">
+                (click)="handleFavorite(i, star)"
+                style="display: inline-block;">
         </span>
-                                        
-        <div class="panel panel-default" *ngFor="let comment of tweets[i].comments, let j = index">
+    </div>
+
+    <div class="panel-body">                                      
+        <div  *ngFor="let comment of tweets[i].comments, let j = index">
             <div class="panel-heading">
-                <img class="profile-picture-comment" src="app/assets/{{tweets[i].comments[j].userName}}.png"/>
-                <h5 class="panel-title">{{tweets[i].comments[j].userName}}</h5>
-            </div>
-            <div class="panel-body">
-                <h6>{{tweets[i].comments[j].commentText}}</h6>
+                <img class="profile-picture-comment" src="app/assets/{{tweets[i].comments[j].userName}}.png" style="display: inline-block;"/>
+                <div class="panel-title" style="display: inline-block; font-weight: bold;">{{tweets[i].comments[j].userName}}:</div>
+                <div class="panel-body" style="display: inline-block;">{{tweets[i].comments[j].commentText}}</div>
             </div>
         </div>
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Comment..." #commentInput (keyup.enter)="addComment(commentInput, i)"/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" (click)="addComment(commentInput, i)">Comment</button>
-                    </span>
-                </div>
+        <div class="col-lg-6" style="width: 100%;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Comment..." #commentInput (keyup.enter)="addComment(commentInput, i)"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="addComment(commentInput, i)">Comment</button>
+                </span>
             </div>
         </div>
     </div>
+</div>

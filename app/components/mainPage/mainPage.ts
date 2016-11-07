@@ -24,6 +24,9 @@ export class MainPage {
         comments.push(new Comment("Moj test komentar", this.currentUser.getUserName()));
     }
 
+    public getThisUserName(){
+        return this.currentUser.getUserName();
+    }
     public getThisUser(){
         return this.currentUser;
     }
@@ -38,7 +41,7 @@ export class MainPage {
         return this.currentUser.getFavoriteTweets();
     }
     public addTweet(tweetInput: HTMLInputElement){
-        if(tweetInput.value != "")
+        if(tweetInput.value != "" && tweetInput.value.length <= 140)
         {
             var currentUserTweets = this.currentUser.getUserTweets();
             currentUserTweets.push(new Tweet(tweetInput.value, this.currentUser.getUserName()));
@@ -75,9 +78,12 @@ class Tweet{
     private comments: Comment[];
 
     constructor(tweet: string, userName: string, comments: Comment[] = []){
-        this.tweet = tweet;
-        this.userName = userName;
-        this.comments = comments;
+        if(tweet.length <= 140)
+        {            
+            this.tweet = tweet;
+            this.userName = userName;
+            this.comments = comments;
+        }
     }
 
     public getTweet(){
