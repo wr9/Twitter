@@ -1,0 +1,46 @@
+<navbar></navbar>
+<div class="row auto-margins">
+    <div class="col-sm-2">
+        <div class="card">
+            <img class="card-img-top offset-sm-3 top-buffer" src="app/assets/user.png" width="120" height="120">
+            <div class="card-block">
+                <h4 class="card-title">Name Lastname</h4>
+                <p class="card-text">@username</p>
+                <div class="row">
+                    <div class="col-sm-2 top-buffer"><i class="fa fa-calendar"></i></div> 
+                    <div class="col-sm-10"><p class="text-sm-center">Joined September 2016</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <div class="row text-sm-center">
+            <ul class="nav nav-tabs col-sm-10">
+                <li class="nav-item">
+                    <a class="nav-link link-cursor" [ngClass]="{'active': isInTweetMode}" (click)="isInTweetMode = true;">
+                        TWEETS
+                        <h4>1</h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-cursor" [ngClass]="{'active': !isInTweetMode}" (click)="isInTweetMode = false;">
+                        LIKES
+                        <h4>1</h4>
+                    </a>
+                </li>
+            </ul>
+            <div class="col-sm-2 top-buffer">
+                <a href="edit-profile" class="btn btn-secondary">Edit profile</a>
+            </div>
+        </div>
+        <div class="card auto-margins">
+            <div class="card-block" *ngIf="isInTweetMode">
+                <h5 class="card-title">Tweets</h5>
+            </div>
+            <div class="card-block" *ngIf="!isInTweetMode">
+                <h5 class="card-title">Likes</h5>
+            </div>
+        </div>
+    </div>
+    
+</div>

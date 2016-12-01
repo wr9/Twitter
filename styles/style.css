@@ -9,3 +9,12 @@
 .auto-margins{
     margin: 2rem auto;
 }
+
+.top-buffer{
+    margin-top: 15px;
+}
+
+.link-cursor
+{
+    cursor: pointer;
+}
