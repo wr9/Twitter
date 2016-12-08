@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-faded">
     <div class="row">
         <div class="col-sm-11">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="">
                 <img src="app/assets/twitter.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 Twitter
             </a>
@@ -12,17 +12,17 @@
             </form>
 
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-1 link-cursor">
             <div ngbDropdown>
                 <div ngbDropdownToggle>
                     <img src="app/assets/user.png" width="40" height="40" alt="">
                 </div>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item">Name Lastname</button>
+                    <div class="dropdown-item no-link-cursor">Name Lastname</div>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item">View profile</button>
-                    <button class="dropdown-item">Edit profile</button>
-                    <button class="dropdown-item">Log out</button>
+                    <a class="dropdown-item" href="profile">View profile</a>
+                    <a class="dropdown-item" href="edit-profile">Edit profile</a>
+                    <a class="dropdown-item">Log out</a>
                 </div>
             </div>
         </div>

@@ -17,13 +17,13 @@
         <div class="row text-sm-center">
             <ul class="nav nav-tabs col-sm-10">
                 <li class="nav-item">
-                    <a class="nav-link link-cursor" [ngClass]="{'active': isInTweetMode}" (click)="isInTweetMode = true;">
+                    <a class="nav-link link-cursor" [ngClass]="{'active': isInTweetMode}" (click)="goToTweet();">
                         TWEETS
                         <h4>1</h4>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-cursor" [ngClass]="{'active': !isInTweetMode}" (click)="isInTweetMode = false;">
+                    <a class="nav-link link-cursor" [ngClass]="{'active': !isInTweetMode}" (click)="goToLike();">
                         LIKES
                         <h4>1</h4>
                     </a>

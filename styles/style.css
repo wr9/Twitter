@@ -1,9 +1,9 @@
-.vcenter {
-    vertical-align: middle;
-}
-
 .right-buffer{
     margin-right: 20px;
+}
+
+.left-buffer{
+    margin-left: 20px;
 }
 
 .auto-margins{
@@ -14,7 +14,22 @@
     margin-top: 15px;
 }
 
-.link-cursor
-{
+.top-buffer-big{
+    margin-top: 35px;
+}
+
+.link-cursor{
     cursor: pointer;
+}
+
+.query-bar{
+    background-color: #1DA1F2;
+    min-height: 60px;
+    color: whitesmoke;
+    font-size: 200%;
+    font-weight: 600;
+}
+
+.no-link-cursor{
+    cursor: default;
 }
